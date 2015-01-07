@@ -1,0 +1,4 @@
+venv/
+*.pyc
+.idea/
+app/static/js/node_modules/
