@@ -1,20 +1,19 @@
 #Message Board
-======
-##Use:
-###Web:
+
+Web:  
 1. Bootstrap  
 2. React  
 3. jQuery  
 4. webpack for js packing
 
-###Backend:  
+Backend:  
 1. Flask  
 2. flask-mongoengine  
 
-###Database:  
+Database:  
 MongoDB  
 
-##Run
+Run:
 use virtualenv  
 ```bash  
 $ virtualenv venv  
@@ -24,7 +23,7 @@ $ pip install -r requirenments.txt
 $ python run.py  
 ```  
 
-##JavaScript  
+JavaScript:  
 Change js file,need node and webpack  
 
 ```bash  
@@ -33,3 +32,5 @@ $ npm install
 $ npm install -g webpack  
 $ webpack --watch
 ```    
+ScreenShot:
+![screenshot](https://raw.githubusercontent.com/defshine/message-board/master/screenshot/screenshot.png)
