@@ -22,7 +22,12 @@ def save_msg():
 @app.route("/messages")
 def list_msg():
     page = request.args.get("page")
-    paginator =Message.objects.order_by('-time').paginate(page=int(page), per_page=5)
+    searchValue = request.args.get("searchValue")
+    if searchValue:
+        paginator =Message.objects(content__contains=searchValue).order_by('-time').paginate(page=int(page), per_page=5)
+    else:
+        paginator =Message.objects.order_by('-time').paginate(page=int(page), per_page=5)
+
     pager = {
         'page': paginator.page,
         'pages': paginator.pages,

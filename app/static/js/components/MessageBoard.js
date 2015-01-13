@@ -1,5 +1,6 @@
 var React = require("react");
 var MessageList = require("./MessageList");
+var SearchBar = require("./SearchBar");
 var MessageForm = require("./MessageForm");
 var Pager =  require("./Pager");
 
@@ -7,8 +8,9 @@ var MessageBoard = React.createClass({
     getInitialState : function(){
         return {
             messages: [],
-            page:0,
-            pages:0
+            page:1,
+            pages:1,
+            searchValue:''
         }
     },
     submitMessage : function (author, content) {
@@ -17,20 +19,37 @@ var MessageBoard = React.createClass({
             url:'/message',
             data:{author:author,content:content}
         }).done(function (data) {
-            console.log(data);
+
+            this.listMessage(1);
+        }.bind(this));
+    },
+    searchHandler : function (searchValue) {
+        //There is no guarantee that `this.state` will be immediately updated, so
+	    //accessing `this.state` after calling this method may return the old value.
+        //so call listMessage in callback
+        this.setState({
+            searchValue:searchValue
+        }, function () {
             this.listMessage(1);
         }.bind(this));
     },
     listMessage : function(page){
-        console.log("listMessages page:"+page)
+
+        var data = {
+            page : page
+        };
+        var searchValue = this.state.searchValue;
+        if(searchValue){
+            data.searchValue = searchValue;
+        }
+
         $.ajax({
             type:'get',
             url:'/messages',
-            data:{page:page}
+            data:data
         }).done(function (resp) {
             if(resp.status == "success"){
                 var pager = resp.pager;
-                console.log(pager);
                 this.setState({
                     messages:pager.messages,
                     page:pager.page,
@@ -51,8 +70,11 @@ var MessageBoard = React.createClass({
         return(
             <div>
                 <MessageForm submitMessage={this.submitMessage}/>
-                <MessageList messages = {this.state.messages}/>
-                <Pager {...pager_props}/>
+                <div className="well">
+                    <SearchBar searchHandler={this.searchHandler}/>
+                    <MessageList messages = {this.state.messages}/>
+                    <Pager {...pager_props}/>
+                </div>
             </div>
         )
     }

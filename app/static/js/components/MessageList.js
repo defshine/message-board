@@ -6,7 +6,6 @@ var MessageList = React.createClass({
         var messages = this.props.messages.map(function(item){
             return <Message message={item}/>
         });
-        console.log(messages);
         return(
             <div>
                 {messages}

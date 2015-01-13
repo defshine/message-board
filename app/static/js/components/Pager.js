@@ -3,14 +3,12 @@ var React = require("react/addons");
 var Pager = React.createClass({
     getDefaultProps : function(){
         return{
-            page:0,
-            pages:0
+            page:1,
+            pages:1
         }
     },
     clickHandler: function(e){
-        e.preventDefault();
-        console.log(e.target.dataset.page);
-        console.log(e.target.dataset.page.value);
+        e.stopPropagation();
         this.props.listMessage(e.target.dataset.page);
 
     },
