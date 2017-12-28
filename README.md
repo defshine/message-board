@@ -1,4 +1,8 @@
-#Message Board
+# Deprecated
+
+The react version of this project is out of date.
+
+## Message Board
 
 Web:  
 1. Bootstrap  
